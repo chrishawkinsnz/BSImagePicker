@@ -251,6 +251,7 @@ final class PhotosViewController : UICollectionViewController {
         guard let title = album.localizedTitle else { return }
         // Update album title
         albumTitleView?.setAlbumTitle(title)
+        albumTitleView?.sizeToFit()
     }
     
   @objc func initializePhotosDataSource(_ album: PHAssetCollection, selections: PHFetchResult<PHAsset>? = nil) {
