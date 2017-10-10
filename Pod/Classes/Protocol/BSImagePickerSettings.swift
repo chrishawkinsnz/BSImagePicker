@@ -82,4 +82,9 @@ public protocol BSImagePickerSettings {
      If you use a black image tint color will be applied to it.
     */
     var takePhotoIcon: UIImage? { get set }
+
+    /**
+     Alpha value of live camera view overlay's background color.
+    */
+    var cameraLivePreviewOverlayAlpha: CGFloat { get set }
 }

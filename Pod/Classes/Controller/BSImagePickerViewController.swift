@@ -265,6 +265,15 @@ extension BSImagePickerViewController: BSImagePickerSettings {
             settings.takePhotoIcon = newValue
         }
     }
+
+    @objc public var cameraLivePreviewOverlayAlpha: CGFloat {
+        get {
+            return settings.cameraLivePreviewOverlayAlpha
+        }
+        set {
+            settings.cameraLivePreviewOverlayAlpha = newValue
+        }
+    }
 }
 
 // MARK: Album button

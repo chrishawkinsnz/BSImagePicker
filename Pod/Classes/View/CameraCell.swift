@@ -14,6 +14,26 @@ import AVFoundation
 final class CameraCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var cameraBackground: UIView!
+    weak var cameraOverlayView: UIView?
+    var cameraOverlayAlpha: CGFloat {
+        get {
+            return cameraOverlayView?.alpha ?? 0
+        }
+        set {
+            if newValue > 0 {
+                if cameraOverlayView == nil {
+                    let overlayView = UIView(frame: cameraBackground.bounds)
+                    overlayView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+                    overlayView.backgroundColor = .black
+                    cameraBackground.addSubview(overlayView)
+                    cameraOverlayView = overlayView
+                }
+                cameraOverlayView?.alpha = newValue
+            } else {
+                cameraOverlayView?.removeFromSuperview()
+            }
+        }
+    }
     @objc var takePhotoIcon: UIImage? {
         didSet {
             imageView.image = takePhotoIcon
