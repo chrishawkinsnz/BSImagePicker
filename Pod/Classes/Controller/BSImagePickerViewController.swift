@@ -148,6 +148,18 @@ extension BSImagePickerViewController: BSImagePickerSettings {
             settings.maxNumberOfSelections = newValue
         }
     }
+
+    /**
+     See BSImagePicketSettings for documentation
+     */
+    @objc public var allowsEmptySelection: Bool {
+        get {
+            return settings.allowsEmptySelection
+        }
+        set {
+            settings.allowsEmptySelection = newValue
+        }
+    }
     
     /**
      See BSImagePicketSettings for documentation

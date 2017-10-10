@@ -30,6 +30,12 @@ public protocol BSImagePickerSettings {
     Max number of images user can select
     */
     var maxNumberOfSelections: Int { get set }
+
+    /**
+    When set to `true` and user hasn't selected any photo, right navigation bar
+    shows 'Skip' instead of grey out 'Done'.
+    */
+    var allowsEmptySelection: Bool { get set }
     
     /**
     Character to use for selection. If nil, selection number will be used

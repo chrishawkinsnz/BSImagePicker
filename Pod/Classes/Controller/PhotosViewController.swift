@@ -65,6 +65,8 @@ final class PhotosViewController : UICollectionViewController {
     fileprivate var defaultSelections: PHFetchResult<PHAsset>?
     
     let settings: BSImagePickerSettings
+
+    fileprivate let skipBarButtonTitle: String = NSLocalizedString("Skip", comment: "Skip")
     
     fileprivate let doneBarButtonTitle: String = NSLocalizedString("Done", comment: "Done")
     
@@ -233,12 +235,14 @@ final class PhotosViewController : UICollectionViewController {
 
         if photosDataSource.selections.count > 0 {
             doneBarButton = UIBarButtonItem(title: "\(doneBarButtonTitle) (\(photosDataSource.selections.count))", style: .done, target: doneBarButton?.target, action: doneBarButton?.action)
+        } else if settings.allowsEmptySelection {
+            doneBarButton = UIBarButtonItem(title: skipBarButtonTitle, style: .done, target: doneBarButton?.target, action: doneBarButton?.action)
         } else {
             doneBarButton = UIBarButtonItem(title: doneBarButtonTitle, style: .done, target: doneBarButton?.target, action: doneBarButton?.action)
         }
 
         // Enabled?
-        doneBarButton?.isEnabled = photosDataSource.selections.count > 0
+        doneBarButton?.isEnabled = settings.allowsEmptySelection || photosDataSource.selections.count > 0
 
         navigationItem.rightBarButtonItem = doneBarButton
     }
