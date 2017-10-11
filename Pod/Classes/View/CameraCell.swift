@@ -20,7 +20,7 @@ final class CameraCell: UICollectionViewCell {
             return cameraOverlayView?.alpha ?? 0
         }
         set {
-            if newValue > 0 {
+            if session != nil && newValue > 0 {
                 if cameraOverlayView == nil {
                     let overlayView = UIView(frame: cameraBackground.bounds)
                     overlayView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
