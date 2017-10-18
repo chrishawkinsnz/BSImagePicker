@@ -47,6 +47,8 @@ open class BSImagePickerViewController : UINavigationController {
      Default selections
      */
     @objc open var defaultSelections: PHFetchResult<PHAsset>?
+
+    @objc open var unauthorizedViewController: UIViewController?
     
     /**
      Fetch results.
@@ -63,6 +65,15 @@ open class BSImagePickerViewController : UINavigationController {
         
         return [cameraRollResult, albumResult]
     }()
+
+    @objc open var cameraUnauthorizedViewController: UIViewController? {
+        get {
+            return photosViewController.cameraUnauthorizedViewController
+        }
+        set {
+            photosViewController.cameraUnauthorizedViewController = newValue
+        }
+    }
     
     @objc var albumTitleView: UIButton = {
         let btn =  UIButton(frame: .zero)
@@ -129,6 +140,8 @@ open class BSImagePickerViewController : UINavigationController {
         // Make sure we really are authorized
         if PHPhotoLibrary.authorizationStatus() == .authorized {
             setViewControllers([photosViewController], animated: false)
+        } else if let viewController = unauthorizedViewController {
+            setViewControllers([viewController], animated: false)
         }
     }
 }

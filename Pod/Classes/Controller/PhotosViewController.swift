@@ -53,6 +53,8 @@ final class PhotosViewController : UICollectionViewController {
     @objc var doneBarButton: UIBarButtonItem?
     @objc var cancelBarButton: UIBarButtonItem?
     @objc var albumTitleView: UIButton?
+
+    @objc var cameraUnauthorizedViewController: UIViewController?
     
     @objc let expandAnimator = ZoomAnimator()
     @objc let shrinkAnimator = ZoomAnimator()
@@ -291,6 +293,11 @@ extension PhotosViewController {
 
         // Camera shouldn't be selected, but pop the UIImagePickerController!
         if let composedDataSource = composedDataSource , composedDataSource.dataSources[indexPath.section].isEqual(cameraDataSource) {
+            if [.denied, .restricted].contains(AVCaptureDevice.authorizationStatus(for: .video)), let viewController = cameraUnauthorizedViewController {
+                self.present(viewController, animated: true, completion: nil)
+                return false
+            }
+
             let cameraController = UIImagePickerController()
             cameraController.allowsEditing = false
             cameraController.sourceType = .camera
