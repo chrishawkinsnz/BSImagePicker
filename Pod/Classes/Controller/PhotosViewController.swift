@@ -453,13 +453,15 @@ extension PhotosViewController: UIImagePickerControllerDelegate {
                 
                 DispatchQueue.main.async {
                     // TODO: move to a function. this is duplicated in didSelect
-                    self.photosDataSource?.selections.append(asset)
-                    self.updateDoneButton()
-                    
-                    // Call selection closure
-                    if let closure = self.selectionClosure {
-                        DispatchQueue.global().async {
-                            closure(asset)
+                    if let selectionsCount = self.photosDataSource?.selections.count, selectionsCount < self.settings.maxNumberOfSelections {
+                        self.photosDataSource?.selections.append(asset)
+                        self.updateDoneButton()
+
+                        // Call selection closure
+                        if let closure = self.selectionClosure {
+                            DispatchQueue.global().async {
+                                closure(asset)
+                            }
                         }
                     }
                     
