@@ -39,18 +39,13 @@ public extension UIViewController {
         - parameter completion: presentation completed closure or nil
     */
     @objc func bs_presentImagePickerController(_ imagePicker: BSImagePickerViewController, animated: Bool, select: ((_ asset: PHAsset) -> Void)?, deselect: ((_ asset: PHAsset) -> Void)?, cancel: (([PHAsset]) -> Void)?, finish: (([PHAsset]) -> Void)?, completion: (() -> Void)?) {
-        BSImagePickerViewController.authorize(fromViewController: self) { (authorized) -> Void in
-            // Make sure we are authorized before proceding
-            guard authorized == true else { return }
-            
-            // Set blocks
-            imagePicker.photosViewController.selectionClosure = select
-            imagePicker.photosViewController.deselectionClosure = deselect
-            imagePicker.photosViewController.cancelClosure = cancel
-            imagePicker.photosViewController.finishClosure = finish
-            
-            // Present
-            self.present(imagePicker, animated: animated, completion: completion)
-        }
+        // Set blocks
+        imagePicker.photosViewController.selectionClosure = select
+        imagePicker.photosViewController.deselectionClosure = deselect
+        imagePicker.photosViewController.cancelClosure = cancel
+        imagePicker.photosViewController.finishClosure = finish
+
+        // Present
+        self.present(imagePicker, animated: animated, completion: completion)
     }
 }

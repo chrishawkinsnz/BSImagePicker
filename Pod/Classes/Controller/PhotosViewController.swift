@@ -60,8 +60,8 @@ final class PhotosViewController : UICollectionViewController {
     @objc let shrinkAnimator = ZoomAnimator()
     
     fileprivate var photosDataSource: PhotoCollectionViewDataSource?
-    fileprivate var albumsDataSource: AlbumTableViewDataSource
-    fileprivate let cameraDataSource: CameraCollectionViewDataSource
+    var albumsDataSource: AlbumTableViewDataSource?
+    fileprivate var cameraDataSource: CameraCollectionViewDataSource
     fileprivate var composedDataSource: ComposedCollectionViewDataSource?
     
     fileprivate var defaultSelections: PHFetchResult<PHAsset>?
@@ -85,8 +85,7 @@ final class PhotosViewController : UICollectionViewController {
         return PreviewViewController(nibName: nil, bundle: nil)
     }()
     
-    required init(fetchResults: [PHFetchResult<PHAssetCollection>], defaultSelections: PHFetchResult<PHAsset>? = nil, settings aSettings: BSImagePickerSettings) {
-        albumsDataSource = AlbumTableViewDataSource(fetchResults: fetchResults)
+    required init(defaultSelections: PHFetchResult<PHAsset>? = nil, settings aSettings: BSImagePickerSettings) {
         cameraDataSource = CameraCollectionViewDataSource(settings: aSettings, cameraAvailable: UIImagePickerController.isSourceTypeAvailable(.camera))
         self.defaultSelections = defaultSelections
         settings = aSettings
@@ -124,7 +123,7 @@ final class PhotosViewController : UICollectionViewController {
         navigationItem.rightBarButtonItem = doneBarButton
         navigationItem.titleView = albumTitleView
 
-        if let album = albumsDataSource.fetchResults.first?.firstObject {
+        if let album = albumsDataSource?.fetchResults.first?.firstObject {
             initializePhotosDataSource(album, selections: defaultSelections)
             updateAlbumTitle(album)
             collectionView?.reloadData()
@@ -404,7 +403,7 @@ extension PhotosViewController: UINavigationControllerDelegate {
 extension PhotosViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Update photos data source
-        let album = albumsDataSource.fetchResults[indexPath.section][indexPath.row]
+        guard let album = albumsDataSource?.fetchResults[indexPath.section][indexPath.row] else { return }
         initializePhotosDataSource(album)
         updateAlbumTitle(album)
         collectionView?.reloadData()

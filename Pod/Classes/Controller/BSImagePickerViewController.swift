@@ -84,8 +84,7 @@ open class BSImagePickerViewController : UINavigationController {
     @objc static let bundle: Bundle = Bundle(path: Bundle(for: PhotosViewController.self).path(forResource: "BSImagePicker", ofType: "bundle")!)!
     
     @objc lazy var photosViewController: PhotosViewController = {
-        let vc = PhotosViewController(fetchResults: self.fetchResults,
-                                      defaultSelections: self.defaultSelections,
+        let vc = PhotosViewController(defaultSelections: self.defaultSelections,
                                       settings: self.settings)
         
         vc.doneBarButton = self.doneButton
@@ -139,9 +138,19 @@ open class BSImagePickerViewController : UINavigationController {
         
         // Make sure we really are authorized
         if PHPhotoLibrary.authorizationStatus() == .authorized {
+            photosViewController.albumsDataSource = AlbumTableViewDataSource(fetchResults: fetchResults)
             setViewControllers([photosViewController], animated: false)
         } else if let viewController = unauthorizedViewController {
             setViewControllers([viewController], animated: false)
+        }
+
+        if PHPhotoLibrary.authorizationStatus() == .notDetermined {
+            BSImagePickerViewController.authorize(fromViewController: self) { [weak self] authorized in
+                if authorized, let controller = self?.photosViewController, let fetchResults = self?.fetchResults {
+                    controller.albumsDataSource = AlbumTableViewDataSource(fetchResults: fetchResults)
+                    self?.setViewControllers([controller], animated: false)
+                }
+            }
         }
     }
 }
