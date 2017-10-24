@@ -89,4 +89,6 @@ public protocol BSImagePickerSettings {
      Alpha value of live camera view overlay's background color.
     */
     var cameraLivePreviewOverlayAlpha: CGFloat { get set }
+
+    var animatePhotoLibraryChanges: Bool { get set }
 }

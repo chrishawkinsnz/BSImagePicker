@@ -63,4 +63,6 @@ final class Settings : BSImagePickerSettings {
     var takePhotoIconTintColor: UIColor? = nil
 
     var cameraLivePreviewOverlayAlpha: CGFloat = 0
+
+    var animatePhotoLibraryChanges: Bool = true
 }

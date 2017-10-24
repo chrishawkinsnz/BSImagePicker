@@ -305,6 +305,15 @@ extension BSImagePickerViewController: BSImagePickerSettings {
             settings.cameraLivePreviewOverlayAlpha = newValue
         }
     }
+
+    @objc public var animatePhotoLibraryChanges: Bool {
+        get {
+            return settings.animatePhotoLibraryChanges
+        }
+        set {
+            settings.animatePhotoLibraryChanges = newValue
+        }
+    }
 }
 
 // MARK: Album button
