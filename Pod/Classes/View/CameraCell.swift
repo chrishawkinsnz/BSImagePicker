@@ -33,10 +33,7 @@ final class CameraCell: UICollectionViewCell {
     }
     @objc var takePhotoIcon: UIImage? {
         didSet {
-            imageView.image = takePhotoIcon
-            
-            // Apply tint to image
-            imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
+            imageView.image = session?.isRunning == true ? takePhotoIcon?.withRenderingMode(.alwaysTemplate) : takePhotoIcon
         }
     }
     
@@ -74,6 +71,7 @@ final class CameraCell: UICollectionViewCell {
             observers = [
                 NotificationCenter.default.addObserver(forName: .AVCaptureSessionDidStartRunning, object: session, queue: .main, using: self.handleRunningStateChangeNotification(_:)),
                 NotificationCenter.default.addObserver(forName: .AVCaptureSessionDidStopRunning, object: session, queue: .main, using: self.handleRunningStateChangeNotification(_:)),
+                NotificationCenter.default.addObserver(forName: .AVCaptureSessionWasInterrupted, object: session, queue: .main, using: self.handleRunningStateChangeNotification(_:)),
             ]
         } catch {
             // Do nothing.
@@ -103,8 +101,12 @@ final class CameraCell: UICollectionViewCell {
     }
 
     private func handleRunningStateChangeNotification(_ : Notification) {
-        guard let cameraOverlayView = cameraOverlayView else { return }
-        cameraOverlayView.isHidden = session?.isRunning != true
-        cameraOverlayView.bringSubview(toFront: cameraOverlayView)
+        guard let session = session else { return }
+        captureLayer?.isHidden = !session.isRunning
+        if let cameraOverlayView = cameraOverlayView {
+            cameraOverlayView.isHidden = !session.isRunning
+            cameraOverlayView.bringSubview(toFront: cameraOverlayView)
+        }
+        imageView.image = session.isRunning ? takePhotoIcon?.withRenderingMode(.alwaysTemplate) : takePhotoIcon
     }
 }

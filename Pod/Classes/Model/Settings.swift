@@ -60,5 +60,7 @@ final class Settings : BSImagePickerSettings {
     
     var takePhotoIcon: UIImage? = UIImage(named: "add_photo", in: BSImagePickerViewController.bundle, compatibleWith: nil)
 
+    var takePhotoIconTintColor: UIColor? = nil
+
     var cameraLivePreviewOverlayAlpha: CGFloat = 0
 }

@@ -83,6 +83,8 @@ public protocol BSImagePickerSettings {
     */
     var takePhotoIcon: UIImage? { get set }
 
+    var takePhotoIconTintColor: UIColor? { get set }
+
     /**
      Alpha value of live camera view overlay's background color.
     */

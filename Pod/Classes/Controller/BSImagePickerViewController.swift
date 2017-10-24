@@ -288,6 +288,15 @@ extension BSImagePickerViewController: BSImagePickerSettings {
         }
     }
 
+    @objc public var takePhotoIconTintColor: UIColor? {
+        get {
+            return settings.takePhotoIconTintColor
+        }
+        set {
+            settings.takePhotoIconTintColor = newValue
+        }
+    }
+
     @objc public var cameraLivePreviewOverlayAlpha: CGFloat {
         get {
             return settings.cameraLivePreviewOverlayAlpha
