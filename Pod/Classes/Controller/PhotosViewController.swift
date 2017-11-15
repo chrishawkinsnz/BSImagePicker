@@ -158,8 +158,6 @@ final class PhotosViewController : UICollectionViewController {
         DispatchQueue.global().async {
             closure(photosDataSource.selections)
         }
-        
-        dismiss(animated: true, completion: nil)
     }
     
     @objc func doneButtonPressed(_ sender: UIBarButtonItem) {
@@ -171,8 +169,6 @@ final class PhotosViewController : UICollectionViewController {
         DispatchQueue.global().async {
             closure(photosDataSource.selections)
         }
-        
-        dismiss(animated: true, completion: nil)
     }
     
     @objc func albumButtonPressed(_ sender: UIButton) {
