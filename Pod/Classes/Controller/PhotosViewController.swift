@@ -155,9 +155,8 @@ final class PhotosViewController : UICollectionViewController {
             dismiss(animated: true, completion: nil)
             return
         }
-        DispatchQueue.global().async {
-            closure(photosDataSource.selections)
-        }
+        
+        closure(photosDataSource.selections)
     }
     
     @objc func doneButtonPressed(_ sender: UIBarButtonItem) {
@@ -166,9 +165,7 @@ final class PhotosViewController : UICollectionViewController {
             return
         }
         
-        DispatchQueue.global().async {
-            closure(photosDataSource.selections)
-        }
+        closure(photosDataSource.selections)
     }
     
     @objc func albumButtonPressed(_ sender: UIButton) {
@@ -334,9 +331,7 @@ extension PhotosViewController {
 
             // Call deselection closure
             if let closure = deselectionClosure {
-                DispatchQueue.global().async {
-                    closure(asset)
-                }
+                closure(asset)
             }
         } else if photosDataSource.selections.count < settings.maxNumberOfSelections { // Select
             // Select asset if not already selected
@@ -356,9 +351,7 @@ extension PhotosViewController {
 
             // Call selection closure
             if let closure = selectionClosure {
-                DispatchQueue.global().async {
-                    closure(asset)
-                }
+                closure(asset)
             }
         }
 
@@ -454,9 +447,7 @@ extension PhotosViewController: UIImagePickerControllerDelegate {
 
                         // Call selection closure
                         if let closure = self.selectionClosure {
-                            DispatchQueue.global().async {
-                                closure(asset)
-                            }
+                            closure(asset)
                         }
                     }
                     
