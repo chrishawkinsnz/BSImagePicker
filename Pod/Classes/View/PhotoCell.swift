@@ -82,4 +82,25 @@ final class PhotoCell: UICollectionViewCell {
             self.selectionOverlayView.alpha = 0.0
         }
     }
+
+    override var accessibilityLabel: String? {
+        get { return "Photo" }
+        set { }
+    }
+    
+    override var isAccessibilityElement: Bool {
+        get { return true }
+        set { }
+    }
+    
+    override var accessibilityTraits: UIAccessibilityTraits {
+        get { return UIAccessibilityTraitButton }
+        set { }
+    }
+    
+    override var accessibilityValue: String? {
+        get { return photoSelected ? "Selected" : "Unselected" }
+        set { }
+    }
+
 }

@@ -109,4 +109,20 @@ final class CameraCell: UICollectionViewCell {
         }
         imageView.image = session.isRunning ? takePhotoIcon?.withRenderingMode(.alwaysTemplate) : takePhotoIcon
     }
+
+    override var accessibilityLabel: String? {
+        get { return "Camera" }
+        set { }
+    }
+    
+    override var isAccessibilityElement: Bool {
+        get { return true }
+        set { }
+    }
+    
+    override var accessibilityTraits: UIAccessibilityTraits {
+        get { return UIAccessibilityTraitButton }
+        set { }
+    }
+
 }
